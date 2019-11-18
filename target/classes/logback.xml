@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<property name="PRO_HOME" value="/home/mkyong/ant/logs" />
+	
+	 <appender name="CrbtCategoryAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	<Append>true</Append>
+	<file>${PRO_HOME}.Crbt</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <!-- rollover daily -->
+      <fileNamePattern>${PRO_HOME}/${log.crbt}/crbt-%d{yyyy-MM-dd}.%i.cdr</fileNamePattern>
+      <timeBasedFileNamingAndTriggeringPolicy
+            class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+        <maxFileSize>100MB</maxFileSize>
+      </timeBasedFileNamingAndTriggeringPolicy>
+    </rollingPolicy>
+    <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="ch.qos.logback.classic.PatternLayout">
+                          <fileHeader></fileHeader>
+                          <pattern>%d - %m%n</pattern>
+            </layout>
+    </encoder>
+ </appender>
+
+ 	 <appender name="UberCategoryAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	<Append>true</Append>
+	<file>${PRO_HOME}.Uber</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <!-- rollover daily -->
+      <fileNamePattern>${PRO_HOME}/${log.uber}/uber-%d{yyyy-MM-dd}.%i.cdr</fileNamePattern>
+      <timeBasedFileNamingAndTriggeringPolicy
+            class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+        <maxFileSize>100MB</maxFileSize>
+      </timeBasedFileNamingAndTriggeringPolicy>
+    </rollingPolicy>
+    <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="ch.qos.logback.classic.PatternLayout">
+                          <fileHeader></fileHeader>
+                          <pattern>%d - %m%n</pattern>
+            </layout>
+    </encoder>
+ </appender>
+
+	 <appender name="CdrFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	<Append>true</Append>
+	<file>${PRO_HOME}/CDR_ManagerLogs.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <!-- rollover daily -->
+      <fileNamePattern>${PRO_HOME}/CDR_ManagerLogs-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+      <timeBasedFileNamingAndTriggeringPolicy
+            class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+        <maxFileSize>100MB</maxFileSize>
+      </timeBasedFileNamingAndTriggeringPolicy>
+    </rollingPolicy>
+	<encoder>
+      <pattern>%d %5p [%t] %c [Msisdn:%mdc{msisdn}|TransactionID:%mdc{transactionId}] - %m%n</pattern>
+    </encoder>
+ </appender>
+ 
+ 	<logger name="com.comviva.cdr.client" level="DEBUG" additivity="false">
+		<appender-ref ref="CdrFileAppender" />
+	</logger>
+
+	
+	<logger name="com.comviva.product.Crbt" level="INFO" additivity="false">
+		<appender-ref ref="CrbtCategoryAppender" />
+	</logger>
+	
+	<logger name="com.comviva.product.Uber" level="INFO" additivity="false">
+		<appender-ref ref="UberCategoryAppender" />
+	</logger>
+
+	<root level="ERROR"/>
+
+</configuration>
